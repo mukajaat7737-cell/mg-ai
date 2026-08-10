@@ -139,24 +139,7 @@ async function ask() {
     chat.innerHTML += `<div class="msg ai">❌ Server से connection नहीं हो पाया।</div>`;
     console.error(error);
   }
-}
-</script>
-    } catch (error) {
-        loading.remove();
 
-        chat.innerHTML += `
-            <div class="msg ai">
-                ❌ Server से connection नहीं हो पाया
-            </div>
-        `;
-
-        console.error(error);
-    }
-
-    chat.scrollTop = chat.scrollHeight;
-}
-
-</script>
-
+  </script>
 </body>
 </html>
