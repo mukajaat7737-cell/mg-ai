@@ -141,23 +141,22 @@ async function ask() {
   }
 }
 </script>
-      body: JSON.stringify({
-        message: q
-      })
-    });
+    } catch (error) {
+        loading.remove();
 
-    const data = await response.json();
+        chat.innerHTML += `
+            <div class="msg ai">
+                ❌ Server से connection नहीं हो पाया
+            </div>
+        `;
 
-    loading.textContent =
-      data.reply || data.error || "कोई जवाब नहीं मिला।";
-  } catch (error) {
-    loading.textContent =
-      "❌ Server से संपर्क नहीं हो पाया।";
-    console.error(error);
-  }
+        console.error(error);
+    }
 
-  chat.scrollTop = chat.scrollHeight;
+    chat.scrollTop = chat.scrollHeight;
 }
+
 </script>
+
 </body>
 </html>
