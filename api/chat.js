@@ -1,13 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
-      error: "POST method required"
-    });
-  }
-
-  if (!process.env.OPENAI_API_KEY) {
-    return res.status(500).json({
-      error: "OPENAI_API_KEY सेट नहीं है।"
+      error: "केवल POST request allowed है"
     });
   }
 
@@ -16,7 +10,7 @@ export default async function handler(req, res) {
 
     if (!message) {
       return res.status(400).json({
-        error: "सवाल खाली है।"
+        error: "Message नहीं मिला"
       });
     }
 
@@ -38,20 +32,22 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
+      console.error(data);
+
       return res.status(response.status).json({
-        error: data.error?.message || "OpenAI API error"
+        error: data.error?.message || "AI API error"
       });
     }
 
     return res.status(200).json({
-      reply: data.output_text || "जवाब नहीं मिला।"
+      reply: data.output_text || "कोई जवाब नहीं मिला"
     });
 
   } catch (error) {
     console.error(error);
 
     return res.status(500).json({
-      error: "Server error"
+      error: "Server में समस्या हुई"
     });
   }
 }
